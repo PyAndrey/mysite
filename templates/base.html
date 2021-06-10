@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Менеджер задач{% endblock %}</title>
+</head>
+<body>
+
+    {% if user.is_authenticated %}
+        <p>Hi {{ user.username }}!</p>
+        Кнопка ВЫЙТИ: <a href="{% url 'task_tracker:logout_view' %}"><button type="submit" value="register" name="register">Выйти</button></a>
+        <hr>
+
+        Список проектов: <a href="{% url 'task_tracker:account' user.id%}"><button type="submit" value="list" name="list">Список проектов</button></a><br><hr>
+        
+      {% else %}
+        <p>You are not logged in.</p>
+        Кнопка ВОЙТИ: <a href="{% url 'task_tracker:login' %}"><button type="submit" value="login" name="login">Войти</button></a><br>
+
+        Кнопка РЕГИСТРАЦИИ: <a href="{% url 'task_tracker:register' %}"><button type="submit" value="register" name="register">Регистрация</button></a><br><hr>
+      {% endif %}
+      {% block content %}
+      {% endblock %}
+    
+
+</body>
+</html>

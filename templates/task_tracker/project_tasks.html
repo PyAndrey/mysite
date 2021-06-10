@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{% url 'task_tracker:account' user.id %}" class="btn btn-light">Назад</a>
+<h1 class="mb-5">Tasks:</h1>
+    {% if user.is_authenticated %}
+
+        {% for task in project %}
+        <h5 class="card-title">Название проекта: {{ task.project.project_name }}</h5>
+        <a href="{% url 'task_tracker:create_task' task.project.id %}" class="btn btn-light">Создать задачу</a>
+            <div class="card">
+                <div class="card-header">
+                    Дата создания: {{ tasks.create_date }}
+                </div>
+                    <div class="card-body">
+                    <h5 class="card-title">Название задачи: {{ task.task_name }}</h5>
+                    <p class="card-text">Описание задачи: {{ task.task_text|truncatewords:15 }}</p>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>You are not logged in.</p>
+    {% endif %}
+
+{% endblock content %}

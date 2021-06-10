@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<form action="{% url 'task_tracker:create_project' user.id %}" method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}<br>
+
+    <button type='submit'>Сохранить</button>
+    <span>{{ error }}</span>
+</form>
+{% else %}
+    <p>You are not logged in.</p>
+{% endif %}
+{% endblock content %}
