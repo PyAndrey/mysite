@@ -1,9 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import User, Project
-from django.forms.widgets import TextInput, Textarea
+from django.forms.widgets import TextInput, Textarea, ChoiceWidget
 from django.utils import timezone
-from task_tracker.models import Task
+from task_tracker.models import Status, Task
 
 class CustomUserCreationForm(UserCreationForm):
 
@@ -42,7 +42,7 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ('project', 'task_name', 'task_text')
+        fields = ('project', 'task_name', 'task_text', 'status')
         exclude = ( 'project',)
         widgets = {
             "task_name": TextInput(

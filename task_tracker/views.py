@@ -63,13 +63,20 @@ def account(request, id):
 
 def project_tasks(request, project_id):
     try:
-        tasks = Task.objects.filter(project=project_id)
+        if request.GET.get('task_status'):
+            tasks = Task.objects.filter(project=project_id, status=request.GET['task_status'])
+        elif request.GET.get('task_name'):
+            tasks = Task.objects.filter(project=project_id, task_name=request.GET['task_name'])
+        else:
+            tasks = Task.objects.filter(project=project_id)
+            print(tasks)
     except:
         raise Http404('Задачи не найдены')
 
-    # latest_comments_list = a.comment_set.order_by(-id)[:10]
+    # task_filter_list = Task.objects.filter(status=)
+    # a.comment_set.order_by(-id)[:10]
     # return render(request, 'articles/detail.html', {'article': a, 'latest_comments_list': latest_comments_list})
-    return render(request, 'task_tracker/project_tasks.html', context={'project':tasks})
+    return render(request, 'task_tracker/project_tasks.html', context={'project':tasks, 'project_id': project_id})
 
 
 def create_project(request, user_id):
@@ -120,8 +127,8 @@ def create_task(request, project_id):
     context={'form': form, 'error': error, 'project': project}
     return render(request, 'task_tracker/create_task.html', context)
     
-    
 
+# Task.objects.filter(status='WT')
 
 # def leave_comment(request, article_id):
 #     try:

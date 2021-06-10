@@ -1,23 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href="{% url 'task_tracker:account' user.id %}" class="btn btn-light">Назад</a>
-<h1 class="mb-5">Tasks:</h1>
+    <a href="{% url 'task_tracker:account' user.id %}" class="btn btn-light">Назад</a>
+    <h1 class="mb-5">Tasks:</h1>
     {% if user.is_authenticated %}
+        <a href="{% url 'task_tracker:create_task' project_id %}" class="btn btn-light">Создать задачу</a><br>
+        <form action="{% url 'task_tracker:project_tasks' project_id%}" method="GET">
+            <button type="submit" value="WT"
+                    name="task_status">Ожидание</button>
+            <button type="submit" value="IM"
+                    name="task_status">Реализация</button>
+            <button type="submit" value="TE"
+                    name="task_status">Проверка</button>
+            <button type="submit" value="RE"
+                    name="task_status">Выпуск</button>
+            <button type="submit" value=""
+                    name="task_status">Сбросить фильтр</button><br>
+            Поиск: <input name="task_name" placeholder="Введите название"><br>
+            <button type="submit">Найти</button><br>
+            
+        </form>
+        {%comment%}
 
+        {%endcomment%}
         {% for task in project %}
         <h5 class="card-title">Название проекта: {{ task.project.project_name }}</h5>
-        <a href="{% url 'task_tracker:create_task' task.project.id %}" class="btn btn-light">Создать задачу</a>
-            <div class="card">
-                <div class="card-header">
-                    Дата создания: {{ tasks.create_date }}
-                </div>
-                    <div class="card-body">
-                    <h5 class="card-title">Название задачи: {{ task.task_name }}</h5>
-                    <p class="card-text">Описание задачи: {{ task.task_text|truncatewords:15 }}</p>
-                </div>
+
+        <div class="card">
+            <div class="card-header">
+                Дата создания: {{ task.create_date }}
             </div>
-            <hr>
+            <div class="card-body">
+                <h2 class="card-title">Название задачи: {{ task.task_name }}</h2>
+                <h3 class="card-title">Статус задачи: {{ task.get_status_display }}</h3>
+                <p class="card-text">Описание задачи: {{ task.task_text|truncatewords:15 }}</p>
+            </div>
+        </div>
+        <hr>
         {% endfor %}
     {% else %}
         <p>You are not logged in.</p>
