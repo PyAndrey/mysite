@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<form action="{% url 'task_tracker:edit_task' project.id task.id %}" method="POST">
+    {% csrf_token %}
+    <p>
+        <label>Введите название</label><br>
+        <input type="text" name="task_name" value="{{task.task_name}}"/>
+    </p>
+    <p>
+        <label>Введите текст описания</label><br>
+        <textarea name="task_text" value="{{task.task_text}}">{{task.task_text}}</textarea>
+    </p>
+
+    <button type='submit'>Сохранить</button>
+    <span>{{ error }}</span>
+</form>
+{% else %}
+    <p>You are not logged in.</p>
+{% endif %}
+{% endblock content %}

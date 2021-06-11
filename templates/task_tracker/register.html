@@ -4,8 +4,6 @@
 
 {% block content %}
 
-{% comment %} action="{% url 'register' %}" - вызывает именнованную функцию register c method.POST {% endcomment %}
-
 <form action="{% url 'task_tracker:register' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}

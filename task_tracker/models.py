@@ -8,17 +8,6 @@ class User(AbstractUser):
     pass
 
 
-    # def __str__(self):
-    #     return self.article_title
-
-    # def was_published_recently(self):
-    #     return self.pub_date >= (timezone.now() - datetime.timedelta(days=7))
-
-    # class Meta:
-    #     verbose_name = 'Статья'
-    #     verbose_name_plural = 'Статьи'
-
-
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project_name = models.CharField('название проекта', max_length=50)

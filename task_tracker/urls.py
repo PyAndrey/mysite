@@ -10,10 +10,6 @@ urlpatterns = [
     path('accounts/<int:id>/', views.account, name='account'),
     path('accounts/project/<int:project_id>/', views.project_tasks, name='project_tasks'),
     path('accounts/project/<int:project_id>/create_task/', views.create_task, name='create_task'),
+    path('accounts/project/<int:project_id>/edit_task/<int:task_id>', views.edit_task, name='edit_task'),
     path('accounts/<int:user_id>/create_project/', views.create_project, name='create_project'),
 ]
-# urlpatterns = [
-#     path('', views.index, name='index'),
-#     path('<int:article_id>/', views.detail, name='detail'),
-#     path('<int:article_id>/leave_comment/', views.leave_comment, name='leave_comment'),
-# ]

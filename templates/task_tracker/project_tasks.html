@@ -20,9 +20,7 @@
             <button type="submit">Найти</button><br>
             
         </form>
-        {%comment%}
-
-        {%endcomment%}
+        
         {% for task in project %}
         <h5 class="card-title">Название проекта: {{ task.project.project_name }}</h5>
 
@@ -35,6 +33,7 @@
                 <h3 class="card-title">Статус задачи: {{ task.get_status_display }}</h3>
                 <p class="card-text">Описание задачи: {{ task.task_text|truncatewords:15 }}</p>
             </div>
+            <a href="{% url 'task_tracker:edit_task' project_id task.id %}" class="btn btn-light">Редактировать задачу</a>
         </div>
         <hr>
         {% endfor %}
